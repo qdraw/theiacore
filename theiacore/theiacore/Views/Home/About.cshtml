@@ -5,3 +5,9 @@
 <h3>@ViewData["Message"]</h3>
 
 <p>Use this area to provide additional information.</p>
+
+<form method="post" enctype="multipart/form-data" asp-controller="Api" asp-action="Upload">>
+    <input type="file" name="files" />
+    <input type="submit" value="Upload" />
+</form>
+

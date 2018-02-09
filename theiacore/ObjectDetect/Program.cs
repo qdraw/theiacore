@@ -11,10 +11,10 @@ namespace ObjectDetect
     {
         private static IEnumerable<CatalogItem> _catalog;
         //private static string _currentDir = Path.GetDirectoryName (Assembly.GetExecutingAssembly ().Location);
-        private static string _input = "D:\\data\\inetpub\\temp\\input.jpg";
-        private static string _output = "D:\\data\\inetpub\\temp\\output.jpg";
-        private static string _catalogPath = "D:\\data\\inetpub\\temp\\mscoco_label_map_nl.pbtxt";
-        private static string _modelPath = "D:\\data\\inetpub\\temp\\ssd_mobilenet_v1_coco_11_06_2017.pb";
+        private static string _input = "input.jpg";
+        private static string _output = "output.jpg";
+        private static string _catalogPath = "mscoco_label_map_nl.pbtxt";
+        private static string _modelPath = "ssd_mobilenet_v1_coco_11_06_2017.pb";
 
         //private static string _input = Path.Combine (_currentDir, "test_images/input.jpg");
         //private static string _output = Path.Combine (_currentDir, "test_images/output.jpg");
@@ -44,19 +44,11 @@ namespace ObjectDetect
         /// ExampleObjectDetection --input_image="/demo/input.jpg" --output_image="/demo/output.jpg" --catalog="/demo/mscoco_label_map.pbtxt" --model="/demo/frozen_inference_graph.pb"
         /// </summary>
         /// 
+        /// 
+
+
         public static void Main()
         {
-            //options.Parse (args);
-
-
-            //if (_catalogPath == null) {
-            //	_catalogPath = DownloadDefaultTexts (_currentDir);
-            //}
-
-            //if (_modelPath == null) {
-            //	_modelPath = DownloadDefaultModel (_currentDir);
-            //}
-
             //_catalogPath = "D:\\data\\inetpub\\temp\\mscoco_label_map_nl.pbtxt";
             //_modelPath = "D:\\data\\inetpub\\temp\\ssd_mobilenet_v1_coco_11_06_2017.pb";
 
@@ -74,7 +66,6 @@ namespace ObjectDetect
                     foreach (var tuple in fileTuples)
                     {
                         var tensor = ImageUtil.CreateTensorFromImageFile(tuple.input, TFDataType.UInt8);
-                        //var tensor = ImageUtil.CreateTensorFromImageFile(tuple.input);
 
                         var runner = session.GetRunner();
 
@@ -96,6 +87,70 @@ namespace ObjectDetect
                     }
                 }
             }
+        }
+
+
+        public static List<string> GetJsonFormat()
+        {
+            var list = new List<string>();
+            _catalog = CatalogUtil.ReadCatalogItems(_catalogPath);
+            var fileTuples = new List<(string input, string output)>() { (_input, _output) };
+            string modelFile = _modelPath;
+
+            using (var graph = new TFGraph())
+            {
+                var model = File.ReadAllBytes(modelFile);
+                graph.Import(new TFBuffer(model));
+
+                using (var session = new TFSession(graph))
+                {
+                    foreach (var tuple in fileTuples)
+                    {
+                        var tensor = ImageUtil.CreateTensorFromImageFile(tuple.input, TFDataType.UInt8);
+
+                        var runner = session.GetRunner();
+
+                        runner
+                            .AddInput(graph["image_tensor"][0], tensor)
+                            .Fetch(
+                                graph["detection_boxes"][0],
+                                graph["detection_scores"][0],
+                                graph["detection_classes"][0],
+                                graph["num_detections"][0]);
+                        var output = runner.Run();
+
+                        var boxes = (float[,,])output[0].GetValue(jagged: false);
+                        var scores = (float[,])output[1].GetValue(jagged: false);
+                        var classes = (float[,])output[2].GetValue(jagged: false);
+                        var num = (float[])output[3].GetValue(jagged: false);
+
+                        return GetBoxes(boxes, scores, classes, tuple.input, tuple.output, MIN_SCORE_FOR_OBJECT_HIGHLIGHTING);
+                    }
+                }
+                return null;
+            }
+        }
+
+        private static List<string> GetBoxes(float[,,] boxes, float[,] scores, float[,] classes, string inputFile, string outputFile, double minScore)
+        {
+            var boxesList = new List<string>();
+            var x = boxes.GetLength(0);
+            var y = boxes.GetLength(1);
+            var z = boxes.GetLength(2);
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    if (scores[i, j] < minScore) continue;
+                    int value = Convert.ToInt32(classes[i, j]);
+                    CatalogItem catalogItem = _catalog.FirstOrDefault(item => item.Id == value);
+                    if (!string.IsNullOrEmpty(catalogItem?.DisplayName))
+                    {
+                        boxesList.Add(catalogItem.DisplayName);
+                    }
+                }
+            }
+            return boxesList;
         }
 
         //private static string DownloadDefaultModel (string dir)
