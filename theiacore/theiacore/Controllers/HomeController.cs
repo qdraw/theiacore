@@ -14,8 +14,8 @@ namespace theiacore.Controllers
     {
         public IActionResult Index()
         {
-            //var stringList = ObjectDetect.Program.GetJsonFormat().AsEnumerable();
-            var stringList = new List<string>();
+            var stringList = ObjectDetect.Program.GetJsonFormat().AsEnumerable();
+            //var stringList = new List<string>();
             return View(stringList);
         }
 

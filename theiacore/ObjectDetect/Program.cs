@@ -45,6 +45,17 @@ namespace ObjectDetect
         /// </summary>
         /// 
         /// 
+        /// 
+
+        public Program()
+        {
+            
+        }
+
+        public void Test()
+        {
+
+        }
 
 
         public static void Main()

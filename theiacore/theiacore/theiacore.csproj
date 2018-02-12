@@ -16,8 +16,4 @@
     <ProjectReference Include="..\ObjectDetect\ObjectDetect.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
 </Project>
