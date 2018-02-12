@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CoreCompat.System.Drawing" Version="1.0.0-beta006" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+<!--    <PackageReference Include="TensorFlowSharp" Version="1.5.0" /> -->
   </ItemGroup>
 
   <ItemGroup>
@@ -13,7 +15,31 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ObjectDetect\ObjectDetect.csproj" />
+    <ProjectReference Include="..\TensorFlowSharp\TensorFlowSharp.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="libtensorflow.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="mscoco_label_map.pbtxt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="mscoco_label_map_nl.pbtxt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ssd_mobilenet_v1_coco_11_06_2017.pb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- <ItemGroup>
+    <None Include="..\native\libtensorflow.dll" Link="nuget\runtimes\win7-x64\native\libtensorflow.dll" PackagePath="runtimes\win7-x64\native\libtensorflow.dll" Pack="true" />
+    <None Include="..\native\libtensorflow.dylib" Link="nuget\runtimes\osx\native\libtensorflow.dylib" PackagePath="runtimes\osx\native\libtensorflow.dylib" Pack="true" />
+    <None Include="..\native\libtensorflow_framework.dylib" Link="libtensorflow_framework.dylib" PackagePath="runtimes\osx\native\libtensorflow_framework.dylib" Pack="true" />
+    <None Include="..\native\libtensorflow.so" Link="libtensorflow.so" PackagePath="runtimes\linux\native\libtensorflow.so" Pack="true" />
+    <None Include="..\native\libtensorflow_framework.so" Link="nuget\runtimes\linux\native\libtensorflow_framework.so" PackagePath="runtimes\linux\native\libtensorflow_framework.so" Pack="true" />
+  </ItemGroup> -->
+
 
 </Project>

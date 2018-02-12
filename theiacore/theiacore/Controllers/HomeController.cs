@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using theiacore.Models;
-using ObjectDetect;
 using theiacore.Filters;
 
 namespace theiacore.Controllers
@@ -14,7 +13,7 @@ namespace theiacore.Controllers
     {
         public IActionResult Index()
         {
-            var stringList = ObjectDetect.Program.GetJsonFormat().AsEnumerable();
+            var stringList = objectdetect.ObjectDetect.GetJsonFormat().AsEnumerable();
             //var stringList = new List<string>();
             return View(stringList);
         }
