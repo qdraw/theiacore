@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
 using ObjectDetect;
 using theiacore.Filters;
 using theiacore.Helper;
@@ -71,6 +73,14 @@ namespace theiacore.Controllers
                 await file.CopyToAsync(stream);
             }
 
+            using (Image img = Image.FromFile(guid))
+            {
+                if (!img.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Jpeg))
+                {
+                    return BadRequest("wrong format");
+                }
+            }
+
             return Json(GetTensorObject.GetJsonFormat(guid));
         }
 
@@ -82,6 +92,7 @@ namespace theiacore.Controllers
 
             //FormValueProvider formModel;
 
+            if (!IsApikeyValid(Request)) return BadRequest("Authorisation Error");
 
             // todo: check if jpg 
             // todo: check apikey
@@ -92,8 +103,70 @@ namespace theiacore.Controllers
                 await Request.StreamFile(stream);
             }
 
-            return Json(GetTensorObject.GetJsonFormat(guid));
+            using (Image img = Image.FromFile(guid))
+            {
+                if (!img.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Jpeg))
+                {
+                    return BadRequest("wrong format");
+                }
+            }
+
+            var tensorObject = GetTensorObject.GetJsonFormat(guid);
+
+            if (IsKeyOptOutAnalytics(Request))
+            {
+                DeleteFile(guid);
+            }
+            return Json(tensorObject);
 
         }
+
+        public static void DeleteFile(string fileName) { 
+            // Delete a file by using File class static method...
+            if(System.IO.File.Exists(fileName))
+            {
+                // Use a try block to catch IOExceptions, to
+                // handle the case of the file already being
+                // opened by another process.
+                try
+                {
+                    System.IO.File.Delete(fileName);
+                }
+                catch (IOException e)
+                {
+                    Console.WriteLine(e.Message);
+                    return;
+                }
+            }
+        }
+
+
+        public bool IsKeyOptOutAnalytics(Microsoft.AspNetCore.Http.HttpRequest request)
+        {
+            if ((Request.Headers["OPTOUTANALYTICS"].ToString() ?? "").Trim().Length > 0)
+            {
+                var apikey = Request.Headers["OPTOUTANALYTICS"].ToString().ToLower();
+                return "true" == apikey;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool IsApikeyValid(Microsoft.AspNetCore.Http.HttpRequest request)
+        {
+            if ((Request.Headers["APIKEY"].ToString() ?? "").Trim().Length > 0)
+            {
+                //var bearer = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+                var apikey = Request.Headers["APIKEY"].ToString();
+                return "55Nz66yRiyz1gAGbBNh8Kw3GS0ocKGYEMR9VU1rpUhXclEMH8Xxomt3CnAaQnfj" == apikey;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }

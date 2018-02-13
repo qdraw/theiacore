@@ -35,6 +35,8 @@ namespace ObjectDetect
             {
                 bmp.Save(targetFilePath, targetFormat);
             }
+            // close the file
+            bmp.Dispose();
             return fType;
         }
 

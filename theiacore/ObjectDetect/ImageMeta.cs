@@ -43,6 +43,7 @@ namespace ObjectDetect
                             fs.Read(buf, 0, 4);
                             var height = (buf[0] << 8) + buf[1];
                             var width = (buf[2] << 8) + buf[3];
+                            fs.Flush();
                             return new Dimensions(width, height);
                         }
                         blockStart += blockLength + 2;
