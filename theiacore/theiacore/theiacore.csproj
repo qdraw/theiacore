@@ -18,6 +18,10 @@
     <ProjectReference Include="..\ObjectDetect\ObjectDetect.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
 <!--  <ItemGroup>
     <None Update="libtensorflow.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -32,7 +36,17 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup> -->
-
+  <ItemGroup>
+        <None Update="ssd_mobilenet_v1_coco_11_06_2017.pb">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+	        <None Update="mscoco_label_map_nl.pbtxt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="mscoco_label_map.pbtxt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+  </ItemGroup>
   <!-- <ItemGroup>
     <None Include="..\native\libtensorflow.dll" Link="nuget\runtimes\win7-x64\native\libtensorflow.dll" PackagePath="runtimes\win7-x64\native\libtensorflow.dll" Pack="true" />
     <None Include="..\native\libtensorflow.dylib" Link="nuget\runtimes\osx\native\libtensorflow.dylib" PackagePath="runtimes\osx\native\libtensorflow.dylib" Pack="true" />

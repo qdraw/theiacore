@@ -1,16 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ObjectDetect.Models
 {
     public class ImageMetaData
     {
-        public string Name { get; set; }
-
-        public int Results { get; set; }
-
-        public Tuple<int, int> Dimensions{ get; set; }
+        public string Keyword { get; set; }
+        public int Class { get; set; }
+        public float Left { get; set; }
+        public float Right { get; set; }
+        public float Top { get; set; }
+        public float Bottom { get; set; }
+        public float Width { get; set; }
+        public int Height { get; set; }
+        public int Score { get; set; }
 
     }
 }

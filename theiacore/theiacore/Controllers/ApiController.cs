@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
+using ObjectDetect;
 using theiacore.Filters;
 using theiacore.Helper;
 
@@ -65,13 +66,16 @@ namespace theiacore.Controllers
 
             if (!ModelState.IsValid) return BadRequest("computer says no");
 
-            var guid = DateTime.UtcNow.ToString("yyyyddMM_HHmmss__") + Guid.NewGuid().ToString().Substring(0, 20);
-            using (var stream = System.IO.File.Create(Path.Combine(_hostingEnvironment.ContentRootPath) + guid))
+            // todo: check if jpg 
+            // todo: check ValidateAntiForgeryToken
+
+            var guid = DateTime.UtcNow.ToString("yyyyddMM_HHmmss__") + Guid.NewGuid().ToString().Substring(0, 20) + ".jpg";
+            using (var stream = System.IO.File.Create(Path.Combine(_hostingEnvironment.ContentRootPath, guid) ))
             {
                 formModel = await Request.StreamFile(stream);
             }
 
-            return Ok(formModel);
+            return Json(GetTensorObject.GetJsonFormat(guid));
 
         }
     }

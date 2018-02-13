@@ -53,15 +53,7 @@
       <None Update="libtensorflow_framework.so">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="ssd_mobilenet_v1_coco_11_06_2017.pb">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="mscoco_label_map_nl.pbtxt">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="mscoco_label_map.pbtxt">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
+
 	</ItemGroup>
 
 
