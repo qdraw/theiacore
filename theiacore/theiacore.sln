@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "theiacore", "theiacore\theiacore.csproj", "{38949BA5-C6F7-49EE-A93B-A46A451CD38E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TensorFlowSharp", "TensorFlowSharp\TensorFlowSharp.csproj", "{99FF71CF-DC52-4D38-968E-126263CDD751}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObjectDetect", "ObjectDetect\ObjectDetect.csproj", "{0CFAB82F-01C4-4193-8789-8637887CA61D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{38949BA5-C6F7-49EE-A93B-A46A451CD38E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38949BA5-C6F7-49EE-A93B-A46A451CD38E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38949BA5-C6F7-49EE-A93B-A46A451CD38E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{99FF71CF-DC52-4D38-968E-126263CDD751}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99FF71CF-DC52-4D38-968E-126263CDD751}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99FF71CF-DC52-4D38-968E-126263CDD751}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{99FF71CF-DC52-4D38-968E-126263CDD751}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CFAB82F-01C4-4193-8789-8637887CA61D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CFAB82F-01C4-4193-8789-8637887CA61D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CFAB82F-01C4-4193-8789-8637887CA61D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CFAB82F-01C4-4193-8789-8637887CA61D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

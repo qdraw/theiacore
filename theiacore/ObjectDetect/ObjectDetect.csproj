@@ -17,7 +17,7 @@
     <ProjectReference Include="..\TensorFlowSharp\TensorFlowSharp.csproj" />
   </ItemGroup> -->
 
-    <ItemGroup>
+   <!-- <ItemGroup>
         <None Remove="nuget\build\net45\TensorFlowSharp.targets" />
         <None Include="nuget\build\net45\TensorFlowSharp.targets" PackagePath="build\net45\TensorFlowSharp.targets" Pack="true" />
         <None Include="..\native\libtensorflow.dll" Link="nuget\runtimes\win7-x64\native\libtensorflow.dll" PackagePath="runtimes\win7-x64\native\libtensorflow.dll" Pack="true" />
@@ -25,6 +25,44 @@
         <None Include="..\native\libtensorflow_framework.dylib" Link="nuget\runtimes\osx\native\libtensorflow_framework.dylib" PackagePath="runtimes\osx\native\libtensorflow_framework.dylib" Pack="true" />
         <None Include="..\native\libtensorflow.so" Link="nuget\runtimes\linux\native\libtensorflow.so" PackagePath="runtimes\linux\native\libtensorflow.so" Pack="true" />
         <None Include="..\native\libtensorflow_framework.so" Link="nuget\runtimes\linux\native\libtensorflow_framework.so" PackagePath="runtimes\linux\native\libtensorflow_framework.so" Pack="true" />
+    </ItemGroup> -->
+
+	<ItemGroup>
+        <None Remove="nuget\build\net45\TensorFlowSharp.targets" />
+        <None Include="nuget\build\net45\TensorFlowSharp.targets" PackagePath="build\net45\TensorFlowSharp.targets" Pack="true" />
+        <None Include="..\native\libtensorflow.dll" Link="nuget\runtimes\win7-x64\native\libtensorflow.dll" PackagePath="libtensorflow.dll" Pack="true" />
+        <None Include="..\native\libtensorflow.dylib" Link="nuget\runtimes\osx\native\libtensorflow.dylib" PackagePath="libtensorflow.dylib" Pack="true" />
+        <None Include="..\native\libtensorflow_framework.dylib" Link="nuget\runtimes\osx\native\libtensorflow_framework.dylib" PackagePath="libtensorflow_framework.dylib" Pack="true" />
+        <None Include="..\native\libtensorflow.so" Link="nuget\runtimes\linux\native\libtensorflow.so" PackagePath="libtensorflow.so" Pack="true" />
+        <None Include="..\native\libtensorflow_framework.so" Link="nuget\runtimes\linux\native\libtensorflow_framework.so" PackagePath="libtensorflow_framework.so" Pack="true" />
     </ItemGroup>
+
+	<ItemGroup>
+	  <None Update="libtensorflow.dll">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="libtensorflow.dylib">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+      <None Update="libtensorflow_framework.dylib">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+	  <None Update="libtensorflow.so">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+      <None Update="libtensorflow_framework.so">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="ssd_mobilenet_v1_coco_11_06_2017.pb">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="mscoco_label_map_nl.pbtxt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="mscoco_label_map.pbtxt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+	</ItemGroup>
+
 
 </Project>

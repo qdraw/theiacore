@@ -15,10 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TensorFlowSharp\TensorFlowSharp.csproj" />
+    <ProjectReference Include="..\ObjectDetect\ObjectDetect.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
+<!--  <ItemGroup>
     <None Update="libtensorflow.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -31,7 +31,7 @@
     <None Update="ssd_mobilenet_v1_coco_11_06_2017.pb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
+  </ItemGroup> -->
 
   <!-- <ItemGroup>
     <None Include="..\native\libtensorflow.dll" Link="nuget\runtimes\win7-x64\native\libtensorflow.dll" PackagePath="runtimes\win7-x64\native\libtensorflow.dll" Pack="true" />
