@@ -19,8 +19,8 @@ namespace theiacore.Controllers
             //var stringList = objectdetect.ObjectDetect.GetJsonFormat().AsEnumerable();
             //var stringList = ObjectDetect.Program.GetJsonFormat().AsEnumerable();
 
-            var stringList = GetTensorObject.GetJsonFormat("input.jpg");
-            //var stringList = new List<string>();
+            //var stringList = GetTensorObject.GetJsonFormat("input.jpg");
+            var stringList = new List<string>();
             return View(stringList);
         }
 

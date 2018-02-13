@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using ObjectDetect.Models;
 using TensorFlow;
 
@@ -11,10 +10,10 @@ namespace ObjectDetect
     public class GetTensorObject
     {
         private static IEnumerable<CatalogItem> _catalog;
-        private static string _input = "input.jpg";
+        //private static string _input = "input.jpg";
         private static string _catalogPath = "mscoco_label_map_nl.pbtxt";
         private static string _modelPath = "ssd_mobilenet_v1_coco_11_06_2017.pb";
-        private static double MIN_SCORE_FOR_OBJECT_HIGHLIGHTING = 0.5;
+        private static double MIN_SCORE_FOR_OBJECT_HIGHLIGHTING = 0.6;
 
         public GetTensorObject(string input)
         {
@@ -22,10 +21,13 @@ namespace ObjectDetect
 
         public static ImageHolder GetJsonFormat(string input)
         {
-            _input = input;
+
+            ImageRotation.RotateImageByExifOrientationData(input, input);
+
             var list = new List<string>();
             _catalog = CatalogUtil.ReadCatalogItems(_catalogPath);
             string modelFile = _modelPath;
+
 
             using (var graph = new TFGraph())
             {
@@ -34,7 +36,7 @@ namespace ObjectDetect
 
                 using (var session = new TFSession(graph))
                 {
-                    var tensor = ImageUtil.CreateTensorFromImageFile(_input, TFDataType.UInt8);
+                    var tensor = ImageUtil.CreateTensorFromImageFile(input, TFDataType.UInt8);
 
                     var runner = session.GetRunner();
 
@@ -52,7 +54,11 @@ namespace ObjectDetect
                     var classes = (float[,])output[2].GetValue(jagged: false);
                     var num = (float[])output[3].GetValue(jagged: false);
 
-                    return GetBoxes(boxes, scores, classes, _input, MIN_SCORE_FOR_OBJECT_HIGHLIGHTING);
+                    var getBoxes = GetBoxes(boxes, scores, classes, input, MIN_SCORE_FOR_OBJECT_HIGHLIGHTING);
+
+                    getBoxes.Dimensions = ImageMeta.GetJpegDimensions(input);
+                    getBoxes.Results = getBoxes.Data.Count;
+                    return getBoxes;
                 }
             }
         }
@@ -114,5 +120,9 @@ namespace ObjectDetect
             }
             return boxesList;
         }
+
+        
     }
+
+   
 }

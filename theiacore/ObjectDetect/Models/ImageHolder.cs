@@ -18,7 +18,7 @@ namespace ObjectDetect.Models
 
         public int Results { get; set; }
 
-        public Tuple<int, int> Dimensions{ get; set; }
+        public Dimensions Dimensions { get; set; }
 
 
         public HashSet<string> KeywordList { get; set; }
@@ -28,19 +28,24 @@ namespace ObjectDetect.Models
             get
             {
                 string keywords = "";
-                var last = KeywordList.Last();
 
-                foreach (var item in KeywordList)
+                if (KeywordList.Any())
                 {
-                    if (last == item)
+                    var last = KeywordList.Last();
+
+                    foreach (var item in KeywordList)
                     {
-                        keywords += item;
-                    }
-                    else
-                    {
-                        keywords += item + ", ";
+                        if (last == item)
+                        {
+                            keywords += item;
+                        }
+                        else
+                        {
+                            keywords += item + ", ";
+                        }
                     }
                 }
+                
                 return keywords;
             }
         }

@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
-using Microsoft.Net.Http.Headers;
 using ObjectDetect;
 using theiacore.Filters;
 using theiacore.Helper;
@@ -52,27 +45,51 @@ namespace theiacore.Controllers
             // process uploaded files
             // Don't rely on or trust the FileName property without validation.
 
-            return Ok(new { count = files.Count, size, filePath });
+            return Ok(new {count = files.Count, size, filePath});
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UploadFile(IFormFile file)
+        { 
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var guid = DateTime.UtcNow.ToString("yyyyddMM_HHmmss__") + Guid.NewGuid().ToString().Substring(0, 22) + ".jpg";
+
+            if (file == null || file.Length == 0)
+                return BadRequest("file not selected");
+
+            var path = Path.Combine(
+                Directory.GetCurrentDirectory(),
+                guid);
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return Json(GetTensorObject.GetJsonFormat(guid));
         }
 
 
         [HttpPost]
         [DisableFormValueModelBinding]
-        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Upload()
         {
 
-            FormValueProvider formModel;
+            //FormValueProvider formModel;
 
-            if (!ModelState.IsValid) return BadRequest("computer says no");
 
             // todo: check if jpg 
-            // todo: check ValidateAntiForgeryToken
+            // todo: check apikey
 
             var guid = DateTime.UtcNow.ToString("yyyyddMM_HHmmss__") + Guid.NewGuid().ToString().Substring(0, 20) + ".jpg";
-            using (var stream = System.IO.File.Create(Path.Combine(_hostingEnvironment.ContentRootPath, guid) ))
+            using (var stream = System.IO.File.Create(Path.Combine(_hostingEnvironment.ContentRootPath, guid)))
             {
-                formModel = await Request.StreamFile(stream);
+                await Request.StreamFile(stream);
             }
 
             return Json(GetTensorObject.GetJsonFormat(guid));
