@@ -43,6 +43,10 @@ namespace theiacore
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            var osNameAndVersion = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
+                  
+                  
+
             app.UseStaticFiles();
 
             app.UseMvc(routes =>

@@ -1,5 +1,7 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 
 namespace ObjectDetect
@@ -63,12 +65,28 @@ namespace ObjectDetect
             return fType;
         }
 
-        /// <summary>
-        /// Return the proper System.Drawing.RotateFlipType according to given orientation EXIF metadata
-        /// </summary>
-        /// <param name="orientation">Exif "Orientation"</param>
-        /// <returns>the corresponding System.Drawing.RotateFlipType enum value</returns>
-        public static RotateFlipType GetRotateFlipTypeByExifOrientationData(int orientation)
+        public static int GetExifRotate(string sourceFilePath) {
+            Image bmp = new Bitmap(sourceFilePath);
+
+            const int orientationId = 0x0112;
+            //var fType = RotateFlipType.RotateNoneFlipNone;
+            var fType = 1;
+            if (bmp.PropertyIdList.Contains(orientationId))
+            {
+                var pItem = bmp.GetPropertyItem(orientationId);
+                fType = pItem.Value[0];
+            }
+            bmp.Dispose();
+            return fType;
+        }
+
+
+            /// <summary>
+            /// Return the proper System.Drawing.RotateFlipType according to given orientation EXIF metadata
+            /// </summary>
+            /// <param name="orientation">Exif "Orientation"</param>
+            /// <returns>the corresponding System.Drawing.RotateFlipType enum value</returns>
+            public static RotateFlipType GetRotateFlipTypeByExifOrientationData(int orientation)
         {
             switch (orientation)
             {

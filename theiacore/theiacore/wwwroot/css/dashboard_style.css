@@ -1,0 +1,128 @@
+
+#header {
+	width: 100%;
+	height: 80px;
+	padding-top: 15px;
+	padding-left: 15px;
+
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: black;
+	z-index: 1;
+}
+#header img {
+	margin: 5px;
+}
+
+#welcome {
+	margin: 15px;
+	margin-top: 70px;
+	margin-bottom: 30px;
+}
+
+.footer,
+#emotion,
+#info {
+	margin: 15px;
+	color: white;
+	margin-bottom: 30px;
+}
+.footer {
+	margin-bottom: 0px;
+}
+h1 {
+	font-size: 4.33vw;
+}
+
+h1,h2,h3{
+	color: white;
+}
+.int {
+	font-size: 4.33vw;
+	line-height: 1;
+	color: white;
+}
+
+.int sup {
+	font-size: 50%;
+	top:-.7em
+}
+
+ul {
+	color: white;
+}
+body {
+	background-color: rgb(28,38,50);
+}
+
+#upload-widget,
+.dz-success-mark {
+	transition: display 2s ease-in;
+}
+#upload-widget {
+	margin: 15px;
+	border-radius: 15px;
+	background-color: #008BFF;
+	height: 100px;
+}
+
+#image {
+	display: none;
+	position: relative;
+}
+#image img{
+	height: 80vh;
+	width: auto;
+}
+
+#image svg{
+	position: absolute;
+	display: inline-block;
+	top: 0px;
+	left: 0px;
+	height: 80vh;
+	width: auto;
+}
+
+
+.container {
+	width: 100%;
+	margin-top:10px;
+  display: -webkit-flex;
+  /* Safari */
+  -webkit-flex-wrap: wrap;
+  /* Safari 6.1+ */
+  display: flex;
+  flex-flow: row wrap;
+}
+.container .item100p {
+	width: calc(100% - 3vw);
+	padding-left: 2.90vw;
+
+}
+.container .item {
+  width: calc(25% - 3vw);
+  /*height: 100vh;*/
+  padding-left: 2.90vw;
+}
+.container .item svg{
+	width: calc(100% - 3vw);
+}
+
+.container .item div.fifty {
+	height: 50%
+}
+.container .item div {
+	height: 33%
+}
+
+svg .vrouw path,
+svg .female path{
+	fill: pink!important
+}
+
+svg .man path,
+svg .male path{
+	fill: #008BFF!important
+}

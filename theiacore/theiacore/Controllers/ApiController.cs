@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Primitives;
 using ObjectDetect;
 using theiacore.Filters;
 using theiacore.Helper;
@@ -53,7 +52,7 @@ namespace theiacore.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UploadFile(IFormFile file)
-        { 
+        {
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -121,7 +120,7 @@ namespace theiacore.Controllers
 
         }
 
-        public static void DeleteFile(string fileName) { 
+        public static void DeleteFile(string fileName) {
             // Delete a file by using File class static method...
             if(System.IO.File.Exists(fileName))
             {

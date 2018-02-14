@@ -13,10 +13,6 @@
     <Folder Include="Properties\" />
   </ItemGroup>
 
-  <!-- <ItemGroup>
-    <ProjectReference Include="..\TensorFlowSharp\TensorFlowSharp.csproj" />
-  </ItemGroup> -->
-
    <!-- <ItemGroup>
         <None Remove="nuget\build\net45\TensorFlowSharp.targets" />
         <None Include="nuget\build\net45\TensorFlowSharp.targets" PackagePath="build\net45\TensorFlowSharp.targets" Pack="true" />
@@ -38,19 +34,19 @@
     </ItemGroup>
 
 	<ItemGroup>
-	  <None Update="libtensorflow.dll">
+	  <None Update="libtensorflow.dll"> <!--  Condition=" '$(OS)' == 'Windows_NT' " -->
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Update="libtensorflow.dylib">
+	  <None Update="libtensorflow.dylib" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' ">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-      <None Update="libtensorflow_framework.dylib">
+      <None Update="libtensorflow_framework.dylib" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' ">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-	  <None Update="libtensorflow.so">
+	  <None Update="libtensorflow.so" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' ">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-      <None Update="libtensorflow_framework.so">
+      <None Update="libtensorflow_framework.so" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' ">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
 

@@ -15,14 +15,13 @@ namespace ObjectDetect
         private static string _modelPath = "ssd_mobilenet_v1_coco_11_06_2017.pb";
         private static double MIN_SCORE_FOR_OBJECT_HIGHLIGHTING = 0.6;
 
-        public GetTensorObject(string input)
-        {
-        }
 
         public static ImageHolder GetJsonFormat(string input)
         {
 
-            ImageRotation.RotateImageByExifOrientationData(input, input);
+           var orientationValue = ImageRotation.GetExifRotate(input);
+
+            var r = ImageRotation.RotateImageByExifOrientationData(input, input);
 
             var list = new List<string>();
             _catalog = CatalogUtil.ReadCatalogItems(_catalogPath);
@@ -56,7 +55,7 @@ namespace ObjectDetect
 
                     var getBoxes = GetBoxes(boxes, scores, classes, input, MIN_SCORE_FOR_OBJECT_HIGHLIGHTING);
 
-                    getBoxes.Dimensions = ImageMeta.GetJpegDimensions(input);
+                    getBoxes.Orientation = orientationValue;
                     getBoxes.Results = getBoxes.Data.Count;
                     return getBoxes;
                 }
@@ -68,6 +67,7 @@ namespace ObjectDetect
             //var boxesList = new List<ImageHolder>();
 
             var boxesList = new ImageHolder();
+            boxesList.Dimensions = ImageMeta.GetJpegDimensions(inputFile);
 
             var x = boxes.GetLength(0);
             var y = boxes.GetLength(1);
@@ -104,14 +104,26 @@ namespace ObjectDetect
                     if (!string.IsNullOrEmpty(catalogItem?.DisplayName))
                     {
                         Console.WriteLine(boxes);
+
+                        float left;
+                        float right;
+                        float top;
+                        float bottom;
+
+                        (left, right, top, bottom) =
+                            (xmin * boxesList.Dimensions.Width, xmax * boxesList.Dimensions.Width,
+                            ymin * boxesList.Dimensions.Height, ymax * boxesList.Dimensions.Height);
+
                         var boxesItem = new ImageMetaData
                         {
                             Keyword = catalogItem.DisplayName,
                             Class = catalogItem.Id,
-                            Left = xmin,
-                            Right = xmax,
-                            Bottom = ymin,
-                            Top = ymax
+                            Left = left,
+                            Right = right,
+                            Bottom = bottom,
+                            Top = top,
+                            Height = bottom - top,
+                            Width = bottom - top
                         };
                         boxesList.Data.Add(boxesItem);
                         boxesList.KeywordList.Add(catalogItem.DisplayName);

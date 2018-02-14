@@ -11,8 +11,8 @@ namespace ObjectDetect.Models
         public float Top { get; set; }
         public float Bottom { get; set; }
         public float Width { get; set; }
-        public int Height { get; set; }
-        public int Score { get; set; }
+        public float Height { get; set; }
+        public float Score { get; set; }
 
     }
 }
