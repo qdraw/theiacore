@@ -101,9 +101,16 @@ namespace ObjectDetect
                     }
 
                     CatalogItem catalogItem = _catalog.FirstOrDefault(item => item.Id == value);
+
+                    Console.WriteLine(xmax);
+                    Console.WriteLine(ymax);
+                    Console.WriteLine(boxesList.Dimensions.Width);
+                    Console.WriteLine(boxesList.Dimensions.Height);
+
+
+
                     if (!string.IsNullOrEmpty(catalogItem?.DisplayName))
                     {
-                        Console.WriteLine(boxes);
 
                         float left;
                         float right;
