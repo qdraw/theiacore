@@ -26,7 +26,14 @@ namespace theiacore
             services.AddMvc();
             services.AddSingleton<IFileProvider>(
                 new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
+                    Path.Combine(Directory.GetCurrentDirectory())));
+
+            if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "uploads")))
+            {
+                Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "uploads"));
+            }
+
+
 
         }
 

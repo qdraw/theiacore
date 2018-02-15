@@ -25,7 +25,7 @@ namespace theiacore.Controllers
         }
 
 
-        public async Task<IActionResult> Post(List<IFormFile> files)
+        /*public async Task<IActionResult> Post(List<IFormFile> files)
         {
             long size = files.Sum(f => f.Length);
 
@@ -47,7 +47,7 @@ namespace theiacore.Controllers
             // Don't rely on or trust the FileName property without validation.
 
             return Ok(new {count = files.Count, size, filePath});
-        }
+        }*/
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -64,15 +64,17 @@ namespace theiacore.Controllers
                 return BadRequest("file not selected");
 
             var path = Path.Combine(
-                Directory.GetCurrentDirectory(),
+                Directory.GetCurrentDirectory(),"uploads",
                 guid);
+
+            Console.WriteLine(path);
 
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
 
-            using (Image img = Image.FromFile(guid))
+            using (Image img = Image.FromFile(path))
             {
                 if (!img.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Jpeg))
                 {
@@ -80,7 +82,7 @@ namespace theiacore.Controllers
                 }
             }
 
-            return Json(GetTensorObject.GetJsonFormat(guid));
+            return Json(GetTensorObject.GetJsonFormat(path));
         }
 
 
@@ -97,12 +99,13 @@ namespace theiacore.Controllers
             // todo: check apikey
 
             var guid = DateTime.UtcNow.ToString("yyyyddMM_HHmmss__") + Guid.NewGuid().ToString().Substring(0, 20) + ".jpg";
-            using (var stream = System.IO.File.Create(Path.Combine(_hostingEnvironment.ContentRootPath, guid)))
+            var path = Path.Combine(_hostingEnvironment.ContentRootPath, "uploads", guid);
+            using (var stream = System.IO.File.Create(path))
             {
                 await Request.StreamFile(stream);
             }
 
-            using (Image img = Image.FromFile(guid))
+            using (Image img = Image.FromFile(path))
             {
                 if (!img.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Jpeg))
                 {
@@ -110,7 +113,7 @@ namespace theiacore.Controllers
                 }
             }
 
-            var tensorObject = GetTensorObject.GetJsonFormat(guid);
+            var tensorObject = GetTensorObject.GetJsonFormat(path);
 
             if (IsKeyOptOutAnalytics(Request))
             {
