@@ -3,16 +3,11 @@ Dropzone.autoDiscover = false;
 
 document.addEventListener("DOMContentLoaded", function(event){
 
-	// Loading alternative config.json file if this one is not there. This is workaround for azure
-    // getConfig("config.json");
-
     var isBackendServerReady = true;
 
     startuploading();
     uploadWidget();
     startuploading();
-
-
 
 	var dimensions = [];
 
@@ -275,44 +270,6 @@ document.addEventListener("DOMContentLoaded", function(event){
 			})
         }
 
-
-
-		//Object.keys(response).forEach(function(key) {
-		//	if (response[key].type !== undefined && labelMap !== undefined) {
-		//		if (response[key].type.indexOf("box") >= 0) {
-		//			display_name = labelMap[response[key].class-1].display_name
-
-		//			if (response[key].type.indexOf("facenet") >= 0) {
-		//				if (response[key].facenet.keyword.length >= 3) {
-		//					display_name = response[key].facenet.keyword
-		//				}
-		//			}
-
-		//			textnodes.push({
-		//				x: response[key].box.left,
-		//				y: response[key].box.top - 10,
-		//				fill: "white",
-		//				class: "textlabel",
-		//				text: display_name
-		//			})
-		//			rectnodes.push({
-		//				x: response[key].box.left,
-		//				y: response[key].box.top,
-		//				width: response[key].box.width,
-		//				height: response[key].box.height,
-		//				stroke: "rgba(255,255,255,0.9)",
-		//				class: "box",
-		//			})
-		//		}
-		//	}
-		//	if (response[key].type === undefined || labelMap === undefined) {
-		//		if (labelMap === undefined) {
-		//			console.log(">> = undefined");
-		//		}
-		//	}
-		//});
-
-
 		var rect = svg.selectAll("rect")
 		    .data(rectnodes)
 		    .enter().append('rect')
@@ -413,31 +370,6 @@ document.addEventListener("DOMContentLoaded", function(event){
             document.querySelector("#welcome span").innerHTML = "Hello " + mode(classes) + "s";
         }
 
-		// if (response.results === 1) {
-		// 	Object.keys(response).forEach(function(key) {
-		// 		if (response[key].type !== undefined) {
-		// 			if (response[key].type.indexOf("box") >= 0) {
-		// 				document.querySelector("#welcome").innerHTML = "Hello " + labelMap[response[key].class-1].display_name
-		// 			}
-		// 		}
-		// 	});
-		// }
-
-		// if (response.results >= 1) {
-		// 	var classes = []
-		// 	Object.keys(response).forEach(function(key) {
-		// 		if (response[key].type !== undefined) {
-		// 			if (response[key].type.indexOf("box") >= 0) {
-		// 				classes.push(labelMap[response[key].class-1].display_name)
-		// 			}
-		// 		}
-		// 	});
-		// 	document.querySelector("#welcome").innerHTML = "<a href='"+location+"' class='reload'></a>Hello " + mode(classes);
-		// 	if (response.results >= 2) {
-		// 		document.querySelector("#welcome").innerHTML += "s"
-		// 	}
-		// }
-
 	}
 
 
@@ -447,9 +379,5 @@ document.addEventListener("DOMContentLoaded", function(event){
 	        - arr.filter(v => v===b).length
 	    ).pop();
 	}
-
-
-
-
 
 });
