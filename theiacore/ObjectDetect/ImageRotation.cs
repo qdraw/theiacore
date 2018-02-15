@@ -20,7 +20,7 @@ namespace ObjectDetect
         }
 
 
-    /// <summary>
+        /// <summary>
         /// Rotate the given image file according to Exif Orientation data
         /// </summary>
         /// <param name="sourceFilePath">path of source file</param>
@@ -65,6 +65,11 @@ namespace ObjectDetect
             return fType;
         }
 
+        /// <summary>
+        /// Return the image exif rotation as value to rotate the image in the browser
+        /// </summary>
+        /// <param name="sourceFilePath">Path of the jpeg image</param>
+        /// <returns>Exif rotation value, nothing is 1. Different outputs are 3, 6 or 8</returns>
         public static int GetExifRotate(string sourceFilePath) {
             Image bmp = new Bitmap(sourceFilePath);
 
@@ -86,7 +91,7 @@ namespace ObjectDetect
             /// </summary>
             /// <param name="orientation">Exif "Orientation"</param>
             /// <returns>the corresponding System.Drawing.RotateFlipType enum value</returns>
-            public static RotateFlipType GetRotateFlipTypeByExifOrientationData(int orientation)
+        public static RotateFlipType GetRotateFlipTypeByExifOrientationData(int orientation)
         {
             switch (orientation)
             {

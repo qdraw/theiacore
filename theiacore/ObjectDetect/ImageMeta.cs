@@ -9,6 +9,11 @@ namespace ObjectDetect
 {
     public class ImageMeta
     {
+        /// <summary>
+        /// Get the images width and height
+        /// </summary>
+        /// <param name="sourceFilePath">Path of the jpeg image</param>
+        /// <returns>Return the image width and height</returns>
         public static Dimensions GetJpegDimensions(string filePath)
         {
             var bmp = new Bitmap(filePath);
