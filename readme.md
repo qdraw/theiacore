@@ -87,15 +87,15 @@ Copy those files to `theiacore/ObjectDetect`
 
 The Libtensorflow api is platform depened and for production build it is nessary to add the assemblies to the `theiacore/theiacore` folder.
 
--   __List of Libtensorflow based on platform:__
-    _Windows:_
--   [libtensorflow.dll](https://github.com/qdraw/theiacore/releases/download/0.1/libtensorflow.dll)
-   _Mac OS:_
--   [libtensorflow.dylib](https://github.com/qdraw/theiacore/releases/download/0.1/libtensorflow.dylib)
--   [libtensorflow_framework.dylib](https://github.com/qdraw/theiacore/releases/download/0.1/libtensorflow_framework.dylib)
-   _Linux:_
--   [libtensorflow.so](https://github.com/qdraw/theiacore/releases/download/0.1/libtensorflow.so)
--   [libtensorflow_framework.so](https://github.com/qdraw/theiacore/releases/download/0.1/libtensorflow_framework.so)
+__List of Libtensorflow downloadurls based on platform:__
+-   _Windows:_
+    -	[libtensorflow.dll](https://github.com/qdraw/theiacore/releases/download/0.1/libtensorflow.dll)
+-   _Mac OS:_
+    -	[libtensorflow.dylib](https://github.com/qdraw/theiacore/releases/download/0.1/libtensorflow.dylib)
+    -	[libtensorflow_framework.dylib](https://github.com/qdraw/theiacore/releases/download/0.1/libtensorflow_framework.dylib)
+-   _Linux:_
+    -	[libtensorflow.so](https://github.com/qdraw/theiacore/releases/download/0.1/libtensorflow.so)
+    -	[libtensorflow_framework.so](https://github.com/qdraw/theiacore/releases/download/0.1/libtensorflow_framework.so)
 
 #### 4. Let's run Theiacore
 ```sh
