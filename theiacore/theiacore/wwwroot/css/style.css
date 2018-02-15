@@ -46,6 +46,15 @@
 	background-color: black;
 	z-index: 1;
 }
+
+    #header .textlogo{
+        color: white;
+        line-height: 50px;
+        display: inline-block;
+        margin-left: 50px;
+        font-size: 18px;
+    }
+
 #header img {
 	margin: 5px;
 }
@@ -82,37 +91,6 @@ body {
 	transition: display 2s ease-in;
 }
 
-#loader {
-	position: absolute;
-	bottom: 0px;
-	left: 0px;
-	height: 80vh;
-	z-index: -1;
-	width: 100%;
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-image: url("../img/loader1.gif");
-	transition: background 2s ease-in;
-	transition: display 2s ease-in;
-	display: none;
-}
-@media all and (max-height: 850px) {
-	#loader {
-		height: 68vh;
-	}
-}
-@media all and (max-height: 667px) and (max-width: 650px) {
-	#loader {
-		height: 50vh;
-	}
-}
-
-@media all and (max-height: 568px) and (max-width: 400px) {
-	#loader {
-		height: 36vh;
-	}
-}
 
 .reload {
 	display: inline-block;
@@ -123,7 +101,7 @@ body {
 	float: right;
 	position: relative;
 	color: white;
-	background-image: url("../img/reload.svg");
+	background-image: url("../images/reload.svg");
 }
 .reload:hover {
 	color: #ccc;
@@ -156,4 +134,14 @@ svg .textlabel {
 #image.landscape img{
 	height: auto;
 	width: 100%;
+}
+
+hr {
+    border-top: 1px solid rgb(55,73,97);
+}
+
+
+footer,
+footer a {
+    color: rgb(55,73,97);
 }

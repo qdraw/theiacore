@@ -102,10 +102,10 @@ namespace ObjectDetect
 
                     CatalogItem catalogItem = _catalog.FirstOrDefault(item => item.Id == value);
 
-                    Console.WriteLine(xmax);
-                    Console.WriteLine(ymax);
-                    Console.WriteLine(boxesList.Dimensions.Width);
-                    Console.WriteLine(boxesList.Dimensions.Height);
+                    //Console.WriteLine(xmax);
+                    //Console.WriteLine(ymax);
+                    //Console.WriteLine(boxesList.Dimensions.Width);
+                    //Console.WriteLine(boxesList.Dimensions.Height);
 
 
 

@@ -4,8 +4,18 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h1 id="welcome">Add your photo here</h1>
-<div id="info"></div>
+
+<div id="header">
+    <a href="@Url.Action("Index","Home")" class="textlogo">Project Theia.core</a>
+</div>
+
+<h1 id="welcome">
+    <a href="@Url.Action("Index","Home")" class="reload"></a>
+    <span>Show your objects here</span>
+</h1>
+<div id="info">
+    Using this tool we can check if there are objects on this picture. By using this tool you agree the terms and conditions. We don't save the images
+</div>
 
 <form method="post" enctype="multipart/form-data" asp-controller="Api" asp-action="UploadFile" id="upload-widget" class="dropzone">
     <div class="fallback">
@@ -13,7 +23,6 @@
     </div>
 </form>
 
-<div id="loader"></div>
 <div id="image">
     <svg></svg>
 </div>

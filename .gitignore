@@ -288,5 +288,11 @@ __pycache__/
 *.xsd.cs
 
 
-uploads/*
+**/*uploads/**
 Thumbs.db
+
+ssd_mobilenet_v1_coco_11_06_2017.pb
+
+mscoco_label_map*
+
+libtensorflow*

@@ -57,50 +57,12 @@ document.addEventListener("DOMContentLoaded", function(event){
 	}
 
 
-
-
-	function computersaysno() {
-		document.querySelector("#welcome").innerHTML = "The computer says wait";
-		document.querySelector("#info").innerHTML = "Please wait a few seconds, I'm now booting my Raspberry Pi. When this is done you can test your emotion and check how old you are. ";
-		loaderHelper(1234,"img/loader1.gif");
-		loaderHelper(2000,"img/loader2.gif");
-		loaderHelper(6000,"img/loader3.gif");
-		loaderHelper(10000,"img/loader4.gif");
-		loaderHelper(12000,"img/loader5.gif");
-		reloadPage(16000);
-	}
-
-	function reloadPage(time) {
-		setTimeout(function(){
-			if (!isBackendServerReady) {
-				location.reload();
-			}
-		}, time);
-	}
-
-	function loaderHelper(time,url) {
-		setTimeout(function(){
-			if (!isBackendServerReady) {
-				document.querySelector("#loader").style.display = "block";
-				var xhr = new XMLHttpRequest();
-				xhr.open('GET', url, true);
-				xhr.onload = function () {
-					document.querySelector("#loader").style.backgroundImage =  "url('" + url +"')"
-				}
-				xhr.send(null);
-			}
-
-		}, time);
-	}
-
 	function startuploading() {
 		if (document.querySelectorAll("#upload-widget").length >= 1) {
 			document.querySelector("#upload-widget").style.display = "block";
 		}
-		document.querySelector("#loader").style.display = "none";
-		document.querySelector("#welcome").innerHTML = "<a href='"+location+"' class='reload'></a>Show your objects here ";
+		document.querySelector("#welcome span").innerHTML = "Show your objects here ";
 		document.querySelector("#info").innerHTML = "Using this tool we can check if there are objects on this picture. By using this tool you agree the terms and conditions. We don't save the images";
-
 	}
 
 	function uploadWidget() {
@@ -125,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 		});
 		uploader.on('addedfile', function( file){
 
-			document.querySelector("#welcome").innerHTML = "<a href='"+location+"' class='reload'></a>We are sending it to us";
+			document.querySelector("#welcome span").innerHTML = "We are sending it to us";
 			document.querySelector("#info").innerHTML = "";
 
 			// start upload
@@ -133,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 
 		uploader.on("sending", function(file, xhr, formData) {
 			// console.log("sending");
-			document.querySelector("#welcome").innerHTML = "<a href='"+location+"' class='reload'></a>Scramble the data";
+			document.querySelector("#welcome span").innerHTML = "Scramble the data";
 			moveUploader();
 			initD3();
 		});
@@ -438,17 +400,17 @@ document.addEventListener("DOMContentLoaded", function(event){
 
 	function showHeader(response) {
 		if (response.results === 0) {
-			document.querySelector("#welcome").innerHTML = "Nothing here?";
+			document.querySelector("#welcome span").innerHTML = "Nothing here?";
 		}
         if (response.results === 1) {
-            document.querySelector("#welcome").innerHTML = "Hello " + response.data[0].keyword;
+            document.querySelector("#welcome span").innerHTML = "Hello " + response.data[0].keyword;
         }
         if (response.results >= 1) {
             var classes = [];
             for (var i = 0; i < response.data.length; i++) {
                 classes.push(response.data[0].keyword);
             }
-            document.querySelector("#welcome").innerHTML = "Hello " + mode(classes) + "s";
+            document.querySelector("#welcome span").innerHTML = "Hello " + mode(classes) + "s";
         }
 
 		// if (response.results === 1) {

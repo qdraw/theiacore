@@ -20,25 +20,25 @@ namespace theiacore.Controllers
             //var stringList = ObjectDetect.Program.GetJsonFormat().AsEnumerable();
 
             //var stringList = GetTensorObject.GetJsonFormat("input.jpg");
-            var stringList = new List<string>();
-            return View(stringList);
-        }
-
-
-        [GenerateAntiforgeryTokenCookieForAjax]
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
+            //var stringList = new List<string>();
             return View();
         }
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
 
-            return View();
-        }
+        //[GenerateAntiforgeryTokenCookieForAjax]
+        //public IActionResult About()
+        //{
+        //    ViewData["Message"] = "Your application description page.";
+
+        //    return View();
+        //}
+
+        //public IActionResult Contact()
+        //{
+        //    ViewData["Message"] = "Your contact page.";
+
+        //    return View();
+        //}
 
         public IActionResult Error()
         {
