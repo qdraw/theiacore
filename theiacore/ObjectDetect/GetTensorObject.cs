@@ -79,6 +79,11 @@ namespace ObjectDetect
             }
         }
 
+        /// <summary>
+        /// Get the ImageHolder object with the width and height of the image and the boxes
+        /// </summary>
+        /// <param name="input">path of source file</param>
+        /// <returns>Returns a ImageHolder object with all object data</returns>
         private static ImageHolder GetBoxes(float[,,] boxes, float[,] scores, float[,] classes, string inputFile, double minScore)
         {
             //var boxesList = new List<ImageHolder>();
@@ -128,7 +133,7 @@ namespace ObjectDetect
 
                     if (!string.IsNullOrEmpty(catalogItem?.DisplayName))
                     {
-
+                        // Calculate the absolute width and height of a object
                         float left;
                         float right;
                         float top;
