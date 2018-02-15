@@ -31,19 +31,26 @@ namespace ObjectDetect
             var r = ImageRotation.RotateImageByExifOrientationData(input, input);
 
             var list = new List<string>();
+
+            // A Catalog is a indexed file which descried the names of the objects
             _catalog = CatalogUtil.ReadCatalogItems(_catalogPath);
             string modelFile = _modelPath;
 
-
+            // Load the model into the memory in place of the empty `TFGraph()`.
             using (var graph = new TFGraph())
             {
                 var model = File.ReadAllBytes(modelFile);
                 graph.Import(new TFBuffer(model));
 
+                // Start a new session to do a numerical computation.
                 using (var session = new TFSession(graph))
                 {
+                    // The variable input is a string with the path of the file.
+                    // This is imported as a multidimensional array, this is also called a Tensor.
                     var tensor = ImageUtil.CreateTensorFromImageFile(input, TFDataType.UInt8);
 
+                    // Use the runner class to easily configure inputs,
+                    // outputs and targets to be passed to the session runner.
                     var runner = session.GetRunner();
 
                     runner
@@ -59,6 +66,9 @@ namespace ObjectDetect
                     var scores = (float[,])output[1].GetValue(jagged: false);
                     var classes = (float[,])output[2].GetValue(jagged: false);
                     var num = (float[])output[3].GetValue(jagged: false);
+
+                    // The boxes, scores and classes are arrays.
+                    // I use GetBoxes to get the values of the objects from these arrays.
 
                     var getBoxes = GetBoxes(boxes, scores, classes, input, MIN_SCORE_FOR_OBJECT_HIGHLIGHTING);
 
