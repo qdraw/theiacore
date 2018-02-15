@@ -3,7 +3,9 @@ using TensorFlow;
 
 namespace ObjectDetect
 {
-
+    /// <summary>
+    /// Helper class for handing TensorFlow images.
+    /// </summary>
     public static class ImageUtil
     {
         // Convert the image in filename to a Tensor suitable as input to the Inception model.

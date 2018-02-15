@@ -7,7 +7,7 @@ using System.Linq;
 namespace ObjectDetect
 {
     /// <summary>
-    /// Helper class for manipulating images.
+    /// Helper class for rotating images according the exif data.
     /// </summary>
     public static class ImageRotation
     {

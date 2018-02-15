@@ -4,7 +4,7 @@ using System.Drawing;
 namespace ObjectDetect
 {
     /// <summary>
-    /// Allows to add graphic elements to the existing image.
+    /// Allows to add graphic elements to the existing image. We don't use this.
     /// </summary>
     public class ImageEditor : IDisposable
     {

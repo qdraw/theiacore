@@ -7,6 +7,9 @@ using TensorFlow;
 
 namespace ObjectDetect
 {
+    /// <summary>
+    /// The default program with code commented out.
+    /// </summary>
     public class Program
     {
         private static IEnumerable<CatalogItem> _catalog;
@@ -37,19 +40,19 @@ namespace ObjectDetect
         /// input_image - optional, the path to the image for processing (the default is 'test_images/input.jpg')
         /// output_image - optional, the path where the image with detected objects will be saved (the default is 'test_images/output.jpg')
         /// catalog - optional, the path to the '*.pbtxt' file (by default, 'mscoco_label_map.pbtxt' been loaded)
-        /// model - optional, the path to the '*.pb' file (by default, 'frozen_inference_graph.pb' model been used, but you can download any other from here 
+        /// model - optional, the path to the '*.pb' file (by default, 'frozen_inference_graph.pb' model been used, but you can download any other from here
         /// https://github.com/tensorflow/models/blob/master/object_detection/g3doc/detection_model_zoo.md or train your own)
-        /// 
-        /// for instance, 
+        ///
+        /// for instance,
         /// ExampleObjectDetection --input_image="/demo/input.jpg" --output_image="/demo/output.jpg" --catalog="/demo/mscoco_label_map.pbtxt" --model="/demo/frozen_inference_graph.pb"
         /// </summary>
-        /// 
-        /// 
-        /// 
+        ///
+        ///
+        ///
 
         public Program()
         {
-            
+
         }
 
         public void Test()
@@ -250,4 +253,3 @@ namespace ObjectDetect
         }
     }
 }
-

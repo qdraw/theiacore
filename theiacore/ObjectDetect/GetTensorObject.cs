@@ -7,6 +7,9 @@ using TensorFlow;
 
 namespace ObjectDetect
 {
+    /// <summary>
+    /// Get the Tensor values as json object
+    /// </summary>
     public class GetTensorObject
     {
         private static IEnumerable<CatalogItem> _catalog;
@@ -15,7 +18,11 @@ namespace ObjectDetect
         private static string _modelPath = "ssd_mobilenet_v1_coco_11_06_2017.pb";
         private static double MIN_SCORE_FOR_OBJECT_HIGHLIGHTING = 0.6;
 
-
+        /// <summary>
+        /// Get the TensorFlow object detection data
+        /// </summary>
+        /// <param name="input">path of source file</param>
+        /// <returns>Returns a ImageHolder object with all object data</returns>
         public static ImageHolder GetJsonFormat(string input)
         {
 
@@ -140,8 +147,8 @@ namespace ObjectDetect
             return boxesList;
         }
 
-        
+
     }
 
-   
+
 }
