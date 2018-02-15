@@ -33,23 +33,23 @@ document.addEventListener("DOMContentLoaded", function(event){
 		xhr.send(null);
 	}
 
-	// for english translation
-	labelMap = [];
-	getLabelMap("js/id_index.json")
-	function getLabelMap(url) {
-
-		var xhr = new XMLHttpRequest();
-		xhr.open('GET', url, true);
-		xhr.onload = function () {
-			if (xhr.status === 200 || xhr.status === 304) {
-				labelMap = JSON.parse(xhr.responseText);
-			}
-			if (xhr.status === 404) {
-				console.log("error");
-			}
-		};
-		xhr.send(null);
-	}
+	// // for english translation
+	// labelMap = [];
+	// getLabelMap("js/id_index.json")
+	// function getLabelMap(url) {
+    //
+	// 	var xhr = new XMLHttpRequest();
+	// 	xhr.open('GET', url, true);
+	// 	xhr.onload = function () {
+	// 		if (xhr.status === 200 || xhr.status === 304) {
+	// 			labelMap = JSON.parse(xhr.responseText);
+	// 		}
+	// 		if (xhr.status === 404) {
+	// 			console.log("error");
+	// 		}
+	// 	};
+	// 	xhr.send(null);
+	// }
 
 
 	function startuploading() {
