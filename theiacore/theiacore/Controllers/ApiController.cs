@@ -160,9 +160,16 @@ namespace theiacore.Controllers
         {
             if ((Request.Headers["APIKEY"].ToString() ?? "").Trim().Length > 0)
             {
+                var connectionString = Startup.ConnectionString;
+
+                if (string.IsNullOrWhiteSpace(connectionString))
+                {
+                    return false;
+                }
+
                 //var bearer = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
                 var apikey = Request.Headers["APIKEY"].ToString();
-                return "55Nz66yRiyz1gAGbBNh8Kw3GS0ocKGYEMR9VU1rpUhXclEMH8Xxomt3CnAaQnfj" == apikey;
+                return connectionString == apikey;
             }
             else
             {

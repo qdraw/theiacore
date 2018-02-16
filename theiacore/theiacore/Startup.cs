@@ -19,6 +19,19 @@ namespace theiacore
         }
 
         public IConfiguration Configuration { get; }
+        public static string ConnectionString;
+
+        private void SetConnectionString()
+        {
+            ConnectionString = Environment.GetEnvironmentVariable("THEIACORE_APIKEY");
+
+            if (string.IsNullOrWhiteSpace(ConnectionString))
+            {
+                Console.WriteLine(">> connectionString from .json file");
+                ConnectionString = Configuration.GetConnectionString("THEIACORE_APIKEY");
+            }
+        }
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -33,6 +46,7 @@ namespace theiacore
                 Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "uploads"));
             }
 
+            SetConnectionString();
 
 
         }
