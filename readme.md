@@ -2,8 +2,12 @@
 
 With Tensorflow you can use Artificial Intelligence to to analyse images. In this blogpost I'm going to do object detection with C# and Tensorflow. TensorFlow is an open source software library for numerical computation. With the technology of the most populair Deep learning framework is easy to use Tensorflow in different situations. In this example I use Tensorflow in combination with _.NET Core 2_
 
+![Detecting two cars and a person](https://apollo.qdraw.eu/temp/001_20180219-demo-object-detection-city.jpg)
+_Detecting two cars and a person_
+
+
 ### An Artificial Intelligence project
-In Theiacore I'm using two Visual Studio projects in one solution. Theiacore is used for serving webpages using the MVC Framework and ObjectDetect is for doing Artificial Intelligence. For Tensorflow there are bindings available for different languages. Python is the most populair binding. The most example you will find in Python. For C# there is [TensorflowSharp], this is a unoffical binding but works good for object detection.
+In Theiacore I'm using two Visual Studio projects in one solution. Theiacore is used for serving webpages using the MVC Framework and ObjectDetect is for doing Artificial Intelligence. For Tensorflow there are bindings available for different languages. Python is the most populair binding. The most example you will find in Python. For C# there is [TensorflowSharp](https://github.com/migueldeicaza/TensorFlowSharp), this is a unoffical binding but works good for object detection.
 
 For this example I'm focusing on using a Machine learning model for object detection. This is trained on Microsoft COCO.  The name COCO stands for _Common objects in context_ is a large-scale object detection, segmentation with 90 categories.
 
@@ -65,6 +69,8 @@ The boxes, scores and classes are arrays. I use GetBoxes to get the values of th
 ### Get the complete solution working
 The sourcecode of the entire project is public avaiable, so you can find out how I've done object detection in C#. Therefore you need to follow the instalation steps.
 
+![Detecting two cars and a person](https://apollo.qdraw.eu/temp/002_20180219-demo-object-detection-train.gif)
+_Whoop, whoop, this is the result_
 
 ### Instalation steps
 Tensorflow requires that you using a x64 runtime, by default is the .NET Core SDK x64. If you are using a x86 version, please switch to 64-bits. If you are planning to use Azure webapp this is by default a x86 dotnet runtime.
@@ -79,7 +85,7 @@ $ git clone "https://github.com/qdraw/theiacore"
 The frozen models are not included in the Github repository, please download this three files and copy those to `theiacore/ObjectDetect`:
 -   [mscoco_label_map.pbtxt](https://github.com/qdraw/theiacore/releases/download/0.1/mscoco_label_map.pbtxt)
 -   [mscoco_label_map_nl.pbtxt](https://github.com/qdraw/theiacore/releases/download/0.1/mscoco_label_map_nl.pbtxt)
--   [ssd_mobilenet_v1_coco_11_06_2017.pb](https://github.com/qdraw/theiacore/releases/download/0.1/ssd_mobilenet_v1_coco_11_06_2017.pb)
+-   [ssd_mobilenet_v1_coco_2017_11_17.pb](https://github.com/qdraw/theiacore/releases/download/0.1/ssd_mobilenet_v1_coco_2017_11_17.pb)
 
 Copy those files to `theiacore/ObjectDetect`
 
@@ -104,4 +110,4 @@ $ dotnet run
 Now listening on: http://localhost:63884
 ```
 
-Theia was named for the titaness Theia, who in Greek mythology was the mother of Selene, the goddess of the moon.
+Should the world of Computer Vision interest you, but you still do not know how to apply this and have the necessary questions? [Send me an email then we can have a cup of coffee.](https://qdraw.nl/contact.html)

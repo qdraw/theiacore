@@ -241,8 +241,12 @@ document.addEventListener("DOMContentLoaded", function(event){
 	}
 
 	function showData(response) {
-		var svg = d3.select("#image svg").attr("viewBox", "0 0 " + response.dimensions.width + " " + response.dimensions.height);
-	    svg.selectAll("#loadrect").remove();
+        var svg = d3.select("#image svg");
+        
+        if (response.dimensions.width >= 0 && response.dimensions.height >= 0) {
+            svg.attr("viewBox", "0 0 " + response.dimensions.width + " " + response.dimensions.height);
+        }
+        svg.selectAll("#loadrect").remove();
 
 
 		alignPortretLandsape(response.dimensions.width,response.dimensions.height);
@@ -251,8 +255,22 @@ document.addEventListener("DOMContentLoaded", function(event){
         var rectnodes = [];
 
 	    console.log(response);
+        console.log(dimensions);
 
         for (var i = 0; i < response.data.length; i++) {
+
+            if (response.data[i].left <= 0 || response.data[i].top <= 0) {
+                response.data[i].left = dimensions.width * (response.data[i].left * -1);
+                response.data[i].right = dimensions.width * (response.data[i].right * -1);
+
+                response.data[i].top = dimensions.height * (response.data[i].top * -1);
+                response.data[i].bottom = dimensions.height * (response.data[i].bottom * -1);
+
+                response.data[i].width = dimensions.width * (response.data[i].width * -1);
+                response.data[i].height = dimensions.height * (response.data[i].height * -1);
+                console.log(response.data[i]);
+            }
+
             textnodes.push({
 				x: response.data[i].left,
 				y: response.data[i].top - 10,
@@ -367,7 +385,10 @@ document.addEventListener("DOMContentLoaded", function(event){
             for (var i = 0; i < response.data.length; i++) {
                 classes.push(response.data[0].keyword);
             }
-            document.querySelector("#welcome span").innerHTML = "Hello " + mode(classes) + "s";
+            document.querySelector("#welcome span").innerHTML = "Hello " + mode(classes);
+            // if (response.results >= 2) {
+            //     document.querySelector("#welcome span").innerHTML += "s";
+            // }
         }
 
 	}
