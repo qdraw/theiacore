@@ -27,7 +27,7 @@ namespace theiacore.Controllers
 
         [HttpPost]
         [DisableFormValueModelBinding]
-        public async Task<IActionResult> Upload() 
+        public async Task<IActionResult> Upload()
         {
 
             if (!IsApikeyValid(Request)) return BadRequest("Authorisation Error");
@@ -39,10 +39,11 @@ namespace theiacore.Controllers
                 await Request.StreamFile(stream);
             }
 
-            if (!ImageMeta.IsJpeg(path))
-            {
-                return BadRequest("please upload a jpeg file");
-            } 
+            // to do: implement feature
+            // if (!ImageMeta.IsJpeg(path))
+            // {
+            //     return BadRequest("please upload a jpeg file");
+            // }
 
             var tensorObject = GetTensorObject.GetJsonFormat(path);
 
