@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,10 +18,20 @@ namespace theiacore
 
         public IConfiguration Configuration { get; }
         public static string ConnectionString;
+        public static string SessionToken;
 
         private void SetConnectionString()
         {
             ConnectionString = Environment.GetEnvironmentVariable("THEIACORE_APIKEY");
+
+            // Session tokens
+            SessionToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+            SessionToken += Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+            byte[] bytes = Encoding.ASCII.GetBytes(SessionToken);
+            SessionToken = Encoding.ASCII.GetString(bytes);
+
+
+
 
             if (string.IsNullOrWhiteSpace(ConnectionString))
             {
@@ -36,6 +44,8 @@ namespace theiacore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
+
             services.AddMvc();
             services.AddSingleton<IFileProvider>(
                 new PhysicalFileProvider(
@@ -64,7 +74,7 @@ namespace theiacore
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            var osNameAndVersion = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
+            //var osNameAndVersion = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
                   
                   
 

@@ -9,6 +9,45 @@ namespace ObjectDetect
 {
     public class ImageMeta
     {
+        // This snipet works only when using windows
+        // public static Dimensions GetJpegDimensions(string filePath)
+        // {
+        //     var bmp = new Bitmap(filePath);
+        //     var dimensions = new Dimensions(bmp.Width,bmp.Height);
+        //     bmp.Dispose();
+        //     return dimensions;
+        // }
+
+        // This snipet works only when using windows
+        // using (Image img = Image.FromFile(path))
+        // {
+        //     if (!img.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Jpeg))
+        //     {
+        //         return BadRequest("wrong format");
+        //     }
+        // }
+
+        public static bool IsJpeg(string filePath)
+        {
+            string headerCode = GetHeaderInfo(filePath).ToUpper();
+            return headerCode.StartsWith("FFD8FFE0");
+        }
+   
+        private static string GetHeaderInfo(string filePath)
+        {
+            byte[] buffer = new byte[8];
+
+            BinaryReader reader = new BinaryReader(new FileStream(filePath, FileMode.Open));
+            reader.Read(buffer, 0, buffer.Length);
+            reader.Close();
+
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in buffer)
+                sb.Append(b.ToString("X2"));
+
+            return sb.ToString();
+        }
+
         /// <summary>
         /// Get the images width and height
         /// </summary>
@@ -16,56 +55,47 @@ namespace ObjectDetect
         /// <returns>Return the image width and height</returns>
         public static Dimensions GetJpegDimensions(string filePath)
         {
-            var bmp = new Bitmap(filePath);
-            var dimensions = new Dimensions(bmp.Width,bmp.Height);
-            bmp.Dispose();
-            return dimensions;
+            using (var fs = File.OpenRead(filePath))
+            {
+                return GetJpegDimensions(fs);
+            }
         }
 
-
-        //    public static Dimensions GetJpegDimensions(string filePath)
-        //    {
-        //        using (var fs = File.OpenRead(filePath))
-        //        {
-        //            return GetJpegDimensions(fs);
-        //        }
-        //    }
-
-        //    public static Dimensions GetJpegDimensions(Stream fs)
-        //    {
-        //        if (!fs.CanSeek) throw new ArgumentException("Stream must be seekable");
-        //        long blockStart;
-        //        var buf = new byte[4];
-        //        fs.Read(buf, 0, 4);
-        //        if (buf.SequenceEqual(new byte[] { 0xff, 0xd8, 0xff, 0xe0 }))
-        //        {
-        //            blockStart = fs.Position;
-        //            fs.Read(buf, 0, 2);
-        //            var blockLength = ((buf[0] << 8) + buf[1]);
-        //            fs.Read(buf, 0, 4);
-        //            if (Encoding.ASCII.GetString(buf, 0, 4) == "JFIF"
-        //                && fs.ReadByte() == 0)
-        //            {
-        //                blockStart += blockLength;
-        //                while (blockStart < fs.Length)
-        //                {
-        //                    fs.Position = blockStart;
-        //                    fs.Read(buf, 0, 4);
-        //                    blockLength = ((buf[2] << 8) + buf[3]);
-        //                    if (blockLength >= 7 && buf[0] == 0xff && buf[1] == 0xc0)
-        //                    {
-        //                        fs.Position += 1;
-        //                        fs.Read(buf, 0, 4);
-        //                        var height = (buf[0] << 8) + buf[1];
-        //                        var width = (buf[2] << 8) + buf[3];
-        //                        fs.Flush();
-        //                        return new Dimensions(width, height);
-        //                    }
-        //                    blockStart += blockLength + 2;
-        //                }
-        //            }
-        //        }
-        //        return new Dimensions(-1, -1);
-        //    }
+        public static Dimensions GetJpegDimensions(Stream fs)
+        {
+            if (!fs.CanSeek) throw new ArgumentException("Stream must be seekable");
+            long blockStart;
+            var buf = new byte[4];
+            fs.Read(buf, 0, 4);
+            if (buf.SequenceEqual(new byte[] { 0xff, 0xd8, 0xff, 0xe0 }))
+            {
+                blockStart = fs.Position;
+                fs.Read(buf, 0, 2);
+                var blockLength = ((buf[0] << 8) + buf[1]);
+                fs.Read(buf, 0, 4);
+                if (Encoding.ASCII.GetString(buf, 0, 4) == "JFIF"
+                    && fs.ReadByte() == 0)
+                {
+                    blockStart += blockLength;
+                    while (blockStart < fs.Length)
+                    {
+                        fs.Position = blockStart;
+                        fs.Read(buf, 0, 4);
+                        blockLength = ((buf[2] << 8) + buf[3]);
+                        if (blockLength >= 7 && buf[0] == 0xff && buf[1] == 0xc0)
+                        {
+                            fs.Position += 1;
+                            fs.Read(buf, 0, 4);
+                            var height = (buf[0] << 8) + buf[1];
+                            var width = (buf[2] << 8) + buf[3];
+                            fs.Flush();
+                            return new Dimensions(width, height);
+                        }
+                        blockStart += blockLength + 2;
+                    }
+                }
+            }
+            return new Dimensions(-1, -1);
+        }
     }
 }

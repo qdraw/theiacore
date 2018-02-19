@@ -207,7 +207,8 @@ namespace ObjectDetect
         //	return textsFile;
         //}
 
-        private static void DrawBoxes(float[,,] boxes, float[,] scores, float[,] classes, string inputFile, string outputFile, double minScore)
+        // before == private
+        public static void DrawBoxes(float[,,] boxes, float[,] scores, float[,] classes, string inputFile, string outputFile, double minScore)
         {
             var x = boxes.GetLength(0);
             var y = boxes.GetLength(1);

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    ViewData["SessionToken"] = Model;
 }
 
 
@@ -17,7 +18,7 @@
     Using this tool we can check if there are objects on this picture. By using this tool you agree the terms and conditions. We don't save the images
 </div>
 
-<form method="post" enctype="multipart/form-data" asp-controller="Api" asp-action="UploadFile" id="upload-widget" class="dropzone">
+<form method="post" enctype="multipart/form-data" asp-controller="Api" asp-action="Upload" id="upload-widget" class="dropzone">
     <div class="fallback">
         <input name="file" type="file" />
     </div>

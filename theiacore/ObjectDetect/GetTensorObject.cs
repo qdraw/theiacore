@@ -15,8 +15,8 @@ namespace ObjectDetect
         private static IEnumerable<CatalogItem> _catalog;
         //private static string _input = "input.jpg";
         private static string _catalogPath = "mscoco_label_map_nl.pbtxt";
-        private static string _modelPath = "ssd_mobilenet_v1_coco_11_06_2017.pb";
-        private static double MIN_SCORE_FOR_OBJECT_HIGHLIGHTING = 0.6;
+        private static string _modelPath = "ssd_mobilenet_v1_coco_2017_11_17.pb";
+        private static double MIN_SCORE_FOR_OBJECT_HIGHLIGHTING = 0.5;
 
         /// <summary>
         /// Get the TensorFlow object detection data
@@ -25,10 +25,10 @@ namespace ObjectDetect
         /// <returns>Returns a ImageHolder object with all object data</returns>
         public static ImageHolder GetJsonFormat(string input)
         {
-
-           var orientationValue = ImageRotation.GetExifRotate(input);
-
-            var r = ImageRotation.RotateImageByExifOrientationData(input, input);
+            // debug only
+            // var orientationValue = ImageRotation.GetExifRotate(input);
+            var orientationValue = 0;
+            // var r = ImageRotation.RotateImageByExifOrientationData(input, input);
 
             var list = new List<string>();
 
@@ -70,6 +70,8 @@ namespace ObjectDetect
                     // The boxes, scores and classes are arrays.
                     // I use GetBoxes to get the values of the objects from these arrays.
 
+                    // Program.DrawBoxes(boxes, scores, classes, input, "test.jpg", MIN_SCORE_FOR_OBJECT_HIGHLIGHTING);
+
                     var getBoxes = GetBoxes(boxes, scores, classes, input, MIN_SCORE_FOR_OBJECT_HIGHLIGHTING);
 
                     getBoxes.Orientation = orientationValue;
@@ -100,8 +102,10 @@ namespace ObjectDetect
             {
                 for (int j = 0; j < y; j++)
                 {
-                    if (scores[i, j] < minScore) continue;
+                    if (scores[i, j] < minScore) continue; // <
                     int value = Convert.ToInt32(classes[i, j]);
+                    Console.WriteLine(value);
+
                     for (int k = 0; k < z; k++)
                     {
                         var box = boxes[i, j, k];

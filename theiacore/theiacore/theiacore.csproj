@@ -31,6 +31,9 @@
       <None Update="mscoco_label_map.pbtxt">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+      <None Update="ssd_mobilenet_v1_coco_2017_11_17.pb">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
   </ItemGroup>
   
 </Project>

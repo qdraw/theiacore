@@ -21,7 +21,7 @@ namespace theiacore.Controllers
 
             //var stringList = GetTensorObject.GetJsonFormat("input.jpg");
             //var stringList = new List<string>();
-            return View();
+            return View("Index", Startup.SessionToken);
         }
 
 
