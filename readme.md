@@ -2,7 +2,7 @@
 
 With Tensorflow you can use Artificial Intelligence to to analyse images. In this blog post I’m going to do object detection with C# and Tensorflow. TensorFlow is an open source software library for numerical computation. With the technology of the most popular Deep learning framework is easy to use Tensorflow in different situations. In this example I use Tensorflow in combination with _.NET Core 2_
 
-![Detecting two cars and a person](https://apollo.qdraw.eu/temp/001_20180219-demo-object-detection-city.jpg)
+![Detecting two cars and a person](https://media.qdraw.nl/log//hoe-werkt-tensorflow-samen-met-microsoft-technologie/1000/001_20180219-demo-object-detection-city_kl1k.jpg)
 _Detecting two cars and a person_
 
 
@@ -69,7 +69,7 @@ The boxes, scores and classes are arrays. I use GetBoxes to get the values of th
 ### Get the complete solution working
 The source code of the entire project is public available, so you can find out how I’ve done object detection in C#. Therefore you need to follow the installation steps.
 
-![Detecting two cars and a person](https://apollo.qdraw.eu/temp/002_20180219-demo-object-detection-train.gif)
+![Detecting two cars and a person](https://media.qdraw.nl/log/hoe-werkt-tensorflow-samen-met-microsoft-technologie/embed/002_20180219-demo-object-detection-train.gif)
 
 _Whoop, whoop, this is the result_
 

@@ -1,6 +1,6 @@
 ## Hoe werkt Tensorflow samen met Microsoft Technologie
 Met Tensorflow en Artificial Intelligence het is mogelijk om afbeeldingen realtime te analyseren. In deze blogpost ga ik objecten detecteren in afbeeldingen met Tensorflow en C#. TensorFlow is een open source library voor wiskundige berekeningen. Door gebruik te maken van TensorFlow, het meest populaire deep learning framework, is het mogelijk om dit framework in te zetten voor verschillende doeleinden. In dit voorbeeld gebruik ik Tensorflow in combinatie met _.NET Core 2_
-![Detecting two cars and a person](https://apollo.qdraw.eu/temp/001_20180219-demo-object-detection-city.jpg)
+![Detecting two cars and a person](https://media.qdraw.nl/log//hoe-werkt-tensorflow-samen-met-microsoft-technologie/1000/001_20180219-demo-object-detection-city_kl1k.jpg)
 _Detecteer twee auto’s en een persoon_
 ### Een Artificial Intelligence project
 In Theiacore gebruik ik twee Visual Studio projecten in één solution. Theiacore wordt gebruikt voor het genereren van webpagina’s. Ik heb gebruik het MVC Framework voor het  genereren van webpagina’s. ObjectDetect wordt gebruikt voor het Artificial Intelligence gedeelte. Voor Tensorflow zijn er bindings (een koppeling tussen twee frameworks) beschikbaar voor verschillende programmeertalen. Python is de meest populaire binding en hiervoor zijn de meeste online voorbeelden beschikbaar. Voor de programmeertaal C# is er [TensorflowSharp](https://github.com/migueldeicaza/TensorFlowSharp), dit is een onofficiële binding die goed werkt voor object detection.
@@ -57,7 +57,7 @@ De `boxes`, `scores` and `classes` zijn arrays en ik gebruik `GetBoxes` om de wa
 ```
 ### Krijg de complete solution werkend.
 De broncode van het complete project is publiek beschikbaar, zo kun je exact zien hoe ik het opgelost heb. De volgende stappen ben je nodig om dit project werkend te krijgen.
-![Detecting two cars and a person](https://apollo.qdraw.eu/temp/002_20180219-demo-object-detection-train.gif)
+![Detecting two cars and a person](https://media.qdraw.nl/log/hoe-werkt-tensorflow-samen-met-microsoft-technologie/embed/002_20180219-demo-object-detection-train.gif)
 _Whoop, whoop, dit is het resultaat_
 ### Installation steps
 Tensorflow vereist dat je een _x64 runtime_ gebruikt. De .NET Core SDK is standaard x64. Wanneer je een x86 (32-bits) versie gebruikt switch s.v.p. eerst naar een 64-bits versie. Als je van plan bent om Azure webapps te gebruiken, deze zijn bij default 32-bits.
