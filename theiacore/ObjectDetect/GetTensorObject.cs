@@ -16,7 +16,7 @@ namespace ObjectDetect
         //private static string _input = "input.jpg";
         private static string _catalogPath = "mscoco_label_map_nl.pbtxt";
         private static string _modelPath = "ssd_mobilenet_v1_coco_2017_11_17.pb";
-        private static double MIN_SCORE_FOR_OBJECT_HIGHLIGHTING = 0.5;
+        private static double MIN_SCORE_FOR_OBJECT_HIGHLIGHTING = 0.65;
 
         /// <summary>
         /// Get the TensorFlow object detection data
@@ -25,12 +25,9 @@ namespace ObjectDetect
         /// <returns>Returns a ImageHolder object with all object data</returns>
         public static ImageHolder GetJsonFormat(string input)
         {
-            // debug only
-            // var orientationValue = ImageRotation.GetExifRotate(input);
-            var orientationValue = 0;
-            // var r = ImageRotation.RotateImageByExifOrientationData(input, input);
 
-            var list = new List<string>();
+            var orientationValue = ImageRotation.GetExifRotate(input);
+            ImageRotation.RotateImageByExifOrientationData(input, input);
 
             // A Catalog is a indexed file which descried the names of the objects
             _catalog = CatalogUtil.ReadCatalogItems(_catalogPath);
@@ -62,10 +59,16 @@ namespace ObjectDetect
                             graph["num_detections"][0]);
                     var output = runner.Run();
 
+                    // ReSharper disable once ArgumentsStyleLiteral
+                    // ReSharper disable once RedundantArgumentDefaultValue
                     var boxes = (float[,,])output[0].GetValue(jagged: false);
+                    // ReSharper disable once ArgumentsStyleLiteral
+                    // ReSharper disable once RedundantArgumentDefaultValue
                     var scores = (float[,])output[1].GetValue(jagged: false);
+                    // ReSharper disable once ArgumentsStyleLiteral
+                    // ReSharper disable once RedundantArgumentDefaultValue
                     var classes = (float[,])output[2].GetValue(jagged: false);
-                    var num = (float[])output[3].GetValue(jagged: false);
+                    //var num = (float[])output[3].GetValue(jagged: false);
 
                     // The boxes, scores and classes are arrays.
                     // I use GetBoxes to get the values of the objects from these arrays.
@@ -84,7 +87,11 @@ namespace ObjectDetect
         /// <summary>
         /// Get the ImageHolder object with the width and height of the image and the boxes
         /// </summary>
-        /// <param name="input">path of source file</param>
+        /// <param name="boxes">boxes tensor</param>
+        /// <param name="scores">scores tensor</param>
+        /// <param name="classes">classes tensor</param>
+        /// <param name="inputFile">path of source file</param>
+        /// <param name="minScore">min score 0-1</param>
         /// <returns>Returns a ImageHolder object with all object data</returns>
         private static ImageHolder GetBoxes(float[,,] boxes, float[,] scores, float[,] classes, string inputFile, double minScore)
         {
@@ -156,7 +163,8 @@ namespace ObjectDetect
                             Bottom = bottom,
                             Top = top,
                             Height = bottom - top,
-                            Width = bottom - top
+                            Width = bottom - top,
+                            Score = scores[i, j]
                         };
                         boxesList.Data.Add(boxesItem);
                         boxesList.KeywordList.Add(catalogItem.DisplayName);
