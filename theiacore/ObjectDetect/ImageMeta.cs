@@ -5,6 +5,7 @@ using System.Text;
 using ObjectDetect.Models;
 
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace ObjectDetect
 {

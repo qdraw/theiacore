@@ -1,46 +1,85 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+      <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+    
+  <PropertyGroup>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+<!--    <NuGetGeneratePackageProperties>true</NuGetGeneratePackageProperties>-->
+<!--      <RestorePackagesPath>packages1</RestorePackagesPath>-->
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0002" />
-    <PackageReference Include="TensorFlowSharp" Version="1.5.0" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0005" />
+    <PackageReference Include="TensorFlowSharp" Version="1.15.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+    
+<!--  <ItemGroup>-->
+<!--    <None Remove="nuget\build\net45\TensorFlowSharp.targets" />-->
+<!--    <None Include="nuget\build\net45\TensorFlowSharp.targets" />-->
+<!--    <None Include="..\native\libtensorflow.dll" Link="nuget\runtimes\win7-x64\native\libtensorflow.dll"  />-->
+<!--    <None Include="..\native\libtensorflow.dylib" Link="nuget\runtimes\osx\native\libtensorflow.dylib"  />-->
+<!--    <None Include="..\native\libtensorflow_framework.dylib" Link="nuget\runtimes\osx\native\libtensorflow_framework.dylib"  />-->
+<!--    <None Include="..\native\libtensorflow.so" Link="nuget\runtimes\linux\native\libtensorflow.so" />-->
+<!--    <None Include="..\native\libtensorflow_framework.so" Link="nuget\runtimes\linux\native\libtensorflow_framework.so"  />-->
+<!--  </ItemGroup>-->
+<!--  -->
+  <ItemGroup>
+
+    <None Include="$(SolutionDir)\$(AssemblyName)\bin\$(Configuration)\$(TargetFramework)\runtimes\osx\native\libtensorflow.dylib" Link="libtensorflow.dylib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+
+    <None Include="$(SolutionDir)\$(AssemblyName)\bin\$(Configuration)\$(TargetFramework)\runtimes\osx\native\libtensorflow_framework.dylib" Link="libtensorflow_framework.dylib" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+
+    <None Include="$(SolutionDir)\$(AssemblyName)\bin\$(Configuration)\$(TargetFramework)\runtimes\win7-x64\native\libtensorflow.dll" Link="libtensorflow.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+
+    <None Include="$(SolutionDir)\$(AssemblyName)\bin\$(Configuration)\$(TargetFramework)\runtimes\linux\native\libtensorflow.so" Link="libtensorflow.so" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+
+    <None Include="$(SolutionDir)\$(AssemblyName)\bin\$(Configuration)\$(TargetFramework)\runtimes\linux\native\libtensorflow_framework.so" Link="libtensorflow_framework.so" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+
+  </ItemGroup>
+  
+<!--    <ItemGroup>-->
+<!--        <Content Include="$(PkgTensorFlowSharp)\runtimes\osx\native\libtensorflow.dylib">-->
+<!--            <Link>runtimes\osx\native\libtensorflow.dylib</Link>-->
+<!--            <CopyToOutputDirectory>Always</CopyToOutputDirectory>-->
+<!--            <CopyToPublishDirectory>Always</CopyToPublishDirectory>-->
+<!--        </Content>-->
+<!--    </ItemGroup>-->
 
 
-	<ItemGroup>
-        <None Remove="nuget\build\net45\TensorFlowSharp.targets" />
-        <None Include="nuget\build\net45\TensorFlowSharp.targets" PackagePath="build\net45\TensorFlowSharp.targets" Pack="true" />
-        <None Include="..\native\libtensorflow.dll" Link="nuget\runtimes\win7-x64\native\libtensorflow.dll" PackagePath="libtensorflow.dll" Pack="true" />
-        <None Include="..\native\libtensorflow.dylib" Link="nuget\runtimes\osx\native\libtensorflow.dylib" PackagePath="libtensorflow.dylib" Pack="true" />
-        <None Include="..\native\libtensorflow_framework.dylib" Link="nuget\runtimes\osx\native\libtensorflow_framework.dylib" PackagePath="libtensorflow_framework.dylib" Pack="true" />
-        <None Include="..\native\libtensorflow.so" Link="nuget\runtimes\linux\native\libtensorflow.so" PackagePath="libtensorflow.so" Pack="true" />
-        <None Include="..\native\libtensorflow_framework.so" Link="nuget\runtimes\linux\native\libtensorflow_framework.so" PackagePath="libtensorflow_framework.so" Pack="true" />
-    </ItemGroup>
 
-	<ItemGroup>
-	  <None Update="libtensorflow.dll"> <!--  Condition=" '$(OS)' == 'Windows_NT' " -->
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="libtensorflow.dylib" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' ">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-      <None Update="libtensorflow_framework.dylib" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' ">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-	  <None Update="libtensorflow.so" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' ">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-      <None Update="libtensorflow_framework.so" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' ">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-	</ItemGroup>
+<!--    <ItemGroup>-->
+<!--  <None Update="libtensorflow.dll"> &lt;!&ndash;  Condition=" '$(OS)' == 'Windows_NT' " &ndash;&gt;-->
+<!--    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>-->
+<!--  </None>-->
+<!--  <None Update="libtensorflow.dylib" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' ">-->
+<!--    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>-->
+<!--  </None>-->
+<!--  <None Update="libtensorflow_framework.dylib" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' ">-->
+<!--    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>-->
+<!--  </None>-->
+<!--  <None Update="libtensorflow.so" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' ">-->
+<!--    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>-->
+<!--  </None>-->
+<!--  <None Update="libtensorflow_framework.so" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' ">-->
+<!--    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>-->
+<!--  </None>-->
+<!--</ItemGroup>-->
 
 
 </Project>

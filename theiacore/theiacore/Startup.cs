@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 
 namespace theiacore
 {
@@ -30,9 +31,6 @@ namespace theiacore
             byte[] bytes = Encoding.ASCII.GetBytes(SessionToken);
             SessionToken = Encoding.ASCII.GetString(bytes);
 
-
-
-
             if (string.IsNullOrWhiteSpace(ConnectionString))
             {
                 Console.WriteLine(">> connectionString from .json file");
@@ -44,8 +42,6 @@ namespace theiacore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
-
             services.AddMvc();
             services.AddSingleton<IFileProvider>(
                 new PhysicalFileProvider(
@@ -58,15 +54,13 @@ namespace theiacore
 
             SetConnectionString();
 
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -74,18 +68,15 @@ namespace theiacore
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            //var osNameAndVersion = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
-                  
-                  
-
             app.UseStaticFiles();
 
-            app.UseMvc(routes =>
+            app.UseRouting();
+
+            // Execute the matched endpoint.
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+           	    endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+  	        });
         }
     }
 }

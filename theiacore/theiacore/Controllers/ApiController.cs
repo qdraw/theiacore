@@ -14,11 +14,11 @@ namespace theiacore.Controllers
 {
     public class ApiController : Controller
     {
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
         //private readonly IAntiforgery _antiforgery;
 
-        public ApiController(IHostingEnvironment hostingEnvironment, IAntiforgery antiforgery)
+        public ApiController(IWebHostEnvironment hostingEnvironment, IAntiforgery antiforgery)
         {
             _hostingEnvironment = hostingEnvironment;
             //_antiforgery = antiforgery;
