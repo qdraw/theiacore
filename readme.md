@@ -1,3 +1,6 @@
+## Note on security
+- This example uses .NET Core 2.x please be aware that this might contains security issues
+
 ## How to see sharper with Tensorflow
 
 With Tensorflow you can use Artificial Intelligence to to analyse images. In this blog post I’m going to do object detection with C# and Tensorflow. TensorFlow is an open source software library for numerical computation. With the technology of the most popular Deep learning framework is easy to use Tensorflow in different situations. In this example I use Tensorflow in combination with _.NET Core 2_
